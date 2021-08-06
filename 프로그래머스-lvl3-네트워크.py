@@ -22,8 +22,7 @@ def solution(n, computers):
     ### 
     ### https://dev-note-97.tistory.com/149?category=884288 참고
 
-
-    # from collections import deque
+# 일단 while 2번에 for 1번, 즉 반복문이 최소 3번은 필요
 def solution(n, computers):
     answer = 0
     network = [False for n in range(n)]
