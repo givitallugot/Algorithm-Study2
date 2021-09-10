@@ -1,0 +1,56 @@
+-- 루시와 엘라 찾기
+SELECT ANIMAL_ID, NAME, SEX_UPON_INTAKE
+FROM ANIMAL_INS
+WHERE NAME IN ('Lucy', 'Ella', 'Pickle', 'Rogan', 'Sabrina', 'Mitty');
+
+
+-- 이름에 el이 들어가는 동물 찾기
+SELECT ANIMAL_ID, NAME
+FROM ANIMAL_INS
+WHERE UPPER(NAME) LIKE '%EL%' AND ANIMAL_TYPE = 'Dog'
+ORDER BY NAME
+
+
+-- 중성화 여부 파악하기
+SELECT ANIMAL_ID, NAME,
+    CASE WHEN LEFT(SEX_UPON_INTAKE, 8) IN ('Neutered', 'Spayed F')
+        THEN 'O'
+        ELSE 'X'
+    END AS 중성화, SEX_UPON_INTAKE
+FROM ANIMAL_INS
+ORDER BY ANIMAL_ID
+
+
+-- 오랜 기간 보호한 동물(2)
+SELECT ANIMAL_ID, NAME,
+    CASE WHEN SUBSTRING(SEX_UPON_INTAKE, 1, 8) IN ('Neutered', 'Spayed F')
+        THEN 'O'
+        ELSE 'X'
+    END AS 중성화
+FROM ANIMAL_INS
+ORDER BY ANIMAL_ID
+
+SELECT ANIMAL_ID, NAME,
+    CASE WHEN SUBSTR(SEX_UPON_INTAKE, 1, 8) IN ('Neutered', 'Spayed F')
+        THEN 'O'
+        ELSE 'X'
+    END AS 중성화
+FROM ANIMAL_INS
+ORDER BY ANIMAL_ID
+
+SELECT O.ANIMAL_ID, O.NAME
+FROM ANIMAL_INS AS I RIGHT JOIN ANIMAL_OUTS AS O ON I.ANIMAL_ID = O.ANIMAL_ID
+ORDER BY O.DATETIME - I.DATETIME DESC
+LIMIT 2
+
+-- DATETIME에서 DATE로 형 변환
+-- MS SQL
+SELECT ANIMAL_ID, NAME, CONVERT(VARCHAR(10), DATETIME, 23) AS 날짜
+FROM ANIMAL_INS
+https://tableplus.com/blog/2018/09/ms-sql-server-how-to-get-date-only-from-datetime-value.html
+출처: https://yamea-guide.tistory.com/entry/MSSQL-MSSQL-날짜-포맷-변환표 [기타치는 개발자의 야매 가이드]
+
+-- MY SQL
+SELECT ANIMAL_ID, NAME, DATE_FORMAT(DATETIME, '%Y-%m-%d') AS 날짜
+FROM ANIMAL_INS
+ORDER BY ANIMAL_ID
