@@ -43,12 +43,14 @@ FROM ANIMAL_INS AS I RIGHT JOIN ANIMAL_OUTS AS O ON I.ANIMAL_ID = O.ANIMAL_ID
 ORDER BY O.DATETIME - I.DATETIME DESC
 LIMIT 2
 
+
 -- DATETIME에서 DATE로 형 변환
 -- MS SQL
 SELECT ANIMAL_ID, NAME, CONVERT(VARCHAR(10), DATETIME, 23) AS 날짜
 FROM ANIMAL_INS
 https://tableplus.com/blog/2018/09/ms-sql-server-how-to-get-date-only-from-datetime-value.html
 출처: https://yamea-guide.tistory.com/entry/MSSQL-MSSQL-날짜-포맷-변환표 [기타치는 개발자의 야매 가이드]
+
 
 -- MY SQL
 SELECT ANIMAL_ID, NAME, DATE_FORMAT(DATETIME, '%Y-%m-%d') AS 날짜
